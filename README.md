@@ -1,7 +1,4 @@
 # linkinfo
-
-# linkinfo
-
 `linkinfo` is a cross‑platform command‑line tool that discovers the switch port, VLAN, system name, port description, and chassis/port identifiers of the network device your machine is connected to. It listens for **LLDP (IEEE 802.1AB)** and **CDP (Cisco Discovery Protocol)** frames and decodes all relevant TLVs, including organizational TLVs such as VLAN, Voice VLAN, tagged VLANs, and VLAN names.
 
 Supported Platforms:
