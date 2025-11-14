@@ -1,0 +1,18 @@
+FROM golang:1.25-bookworm
+
+# Install libpcap headers needed by gopacket/pcap for CGO.
+RUN apt-get update && apt-get install -y \
+    libpcap-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /src
+
+# Cache modules
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy the rest of the source
+COPY . .
+
+# Default command: build the native linux binary (amd64 in this image)
+CMD ["make", "linux-amd64"]
