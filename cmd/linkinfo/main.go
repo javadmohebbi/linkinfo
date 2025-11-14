@@ -9,6 +9,7 @@ import (
 
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/pcap"
+	"github.com/javadmohebbi/linkinfo"
 )
 
 func main() {
@@ -20,7 +21,7 @@ func main() {
 	flag.Parse()
 
 	if *list {
-		listInterfaces()
+		linkinfo.ListInterfaces()
 		return
 	}
 
@@ -64,11 +65,11 @@ func main() {
 				fmt.Println("Packet source closed.")
 				return
 			}
-			info, ok := decodeDiscovery(pkt, *iface)
+			info, ok := linkinfo.DecodeDiscovery(pkt, *iface)
 			if !ok {
 				continue
 			}
-			printDiscovery(info)
+			linkinfo.PrintDiscovery(info)
 			if !*continuous {
 				return
 			}

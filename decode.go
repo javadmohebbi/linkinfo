@@ -8,8 +8,8 @@ import (
 	"github.com/google/gopacket/layers"
 )
 
-// decodeDiscovery figures out if a packet is LLDP or CDP, parses it, and returns DiscoveryInfo.
-func decodeDiscovery(pkt gopacket.Packet, iface string) (DiscoveryInfo, bool) {
+// DecodeDiscovery figures out if a packet is LLDP or CDP, parses it, and returns DiscoveryInfo.
+func DecodeDiscovery(pkt gopacket.Packet, iface string) (DiscoveryInfo, bool) {
 	ethLayer := pkt.Layer(layers.LayerTypeEthernet)
 	if ethLayer == nil {
 		return DiscoveryInfo{}, false

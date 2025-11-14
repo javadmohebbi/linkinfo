@@ -10,7 +10,7 @@ import (
 	"github.com/google/gopacket/pcap"
 )
 
-func listInterfaces() {
+func ListInterfaces() {
 	devs, err := pcap.FindAllDevs()
 	if err != nil {
 		log.Fatalf("FindAllDevs failed: %v", err)
@@ -25,7 +25,7 @@ func listInterfaces() {
 	}
 }
 
-func printDiscovery(i DiscoveryInfo) {
+func PrintDiscovery(i DiscoveryInfo) {
 	fmt.Println("======================================")
 	fmt.Printf("Protocol     : %s\n", i.Proto)
 	fmt.Printf("Interface    : %s\n", i.Interface)
