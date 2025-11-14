@@ -17,6 +17,12 @@ import (
 	"github.com/javadmohebbi/linkinfo"
 )
 
+// These variables are populated at build time using -ldflags.
+var (
+	BuildTime string
+	GitCommit string
+)
+
 // main parses command-line flags, validates the selected interface, configures
 // a packet capture with a BPF filter for LLDP and CDP traffic, and then
 // dispatches packets to the linkinfo package for decoding and display. It can
@@ -31,9 +37,27 @@ func main() {
 	list := flag.Bool("list", false, "List available interfaces and exit")
 	continuous := flag.Bool("continuous", false, "Keep listening and print every LLDP/CDP frame")
 	timeout := flag.Duration("timeout", 30*time.Second, "Stop after this duration if no frame received (ignored with -continuous)")
+	version := flag.Bool("v", false, "Show version, build time, git commit, and project URL")
 
 	// Parse all registered command‑line flags.
 	flag.Parse()
+
+	// If -v is provided, print version/build metadata and exit.
+	if *version {
+		fmt.Println("linkinfo — network discovery tool")
+		fmt.Println("GitHub:", "https://github.com/javadmohebbi/linkinfo")
+		if BuildTime != "" {
+			fmt.Println("Build Time:", BuildTime)
+		} else {
+			fmt.Println("Build Time: <not provided>")
+		}
+		if GitCommit != "" {
+			fmt.Println("Git Commit:", GitCommit)
+		} else {
+			fmt.Println("Git Commit: <not provided>")
+		}
+		return
+	}
 
 	// If -list is provided, enumerate all interfaces and exit.
 	if *list {
